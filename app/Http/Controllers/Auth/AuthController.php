@@ -11,7 +11,13 @@ class AuthController extends Controller
     //Registration Index
     public function registraterIndex()
     {
-        return view('layouts.registration');
+        return view('auth.register');
+    }
+
+    //Login Index
+    public function loginIndex()
+    {
+        return view('auth.login');
     }
 
 
