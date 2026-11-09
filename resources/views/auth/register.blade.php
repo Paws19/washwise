@@ -88,201 +88,177 @@
                             class="visually-hidden">with an asterisk</span> are required.</p>
                 </header>
 
-                <form id="registerForm" method="POST" action="#" novalidate>
+                {{-- Replace your whole <form>...</form> block with this one --}}
+<form  method="POST" action="{{ route('register.store') }}" novalidate>
+                @csrf
 
-                    <div id="formSuccess" class="alert alert-success d-none" role="status" tabindex="-1">All set! Your
-                        details look good. (Demo mode: nothing has been saved yet.)</div>
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        <ul class="mb-0 ps-3">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-                    <div class="row g-3">
+                <div class="row g-3">
 
-                        <fieldset class="col-12 ww-field">
-                            <legend class="form-label">I'm signing up as <span class="ww-req" aria-hidden="true">*</span>
-                            </legend>
-                            <div class="row g-3">
-                                <div class="col-6">
-                                    <label class="ww-choice">
-                                        <input type="radio" name="role" value="customer" class="ww-choice__input" checked
-                                            required>
-                                        <span class="ww-choice__body">
-                                            <span class="ww-choice__ico"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                                    <circle cx="12" cy="8" r="4" />
-                                                    <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
-                                                </svg></span>
-                                            <strong>Customer</strong>
-                                            <small>Drop off and track my laundry</small>
-                                        </span>
-                                        <span class="ww-choice__tick"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                                <path d="M5 12.5l4.5 4.5L19 7.5" />
-                                            </svg></span>
-                                    </label>
-                                </div>
-                                <div class="col-6">
-                                    <label class="ww-choice">
-                                        <input type="radio" name="role" value="staff" class="ww-choice__input">
-                                        <span class="ww-choice__body">
-                                            <span class="ww-choice__ico"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                                    <rect x="4" y="3" width="16" height="18" rx="3" />
-                                                    <circle cx="12" cy="10" r="2.5" />
-                                                    <path d="M8 17c.8-2 2.2-3 4-3s3.2 1 4 3" />
-                                                </svg></span>
-                                            <strong>Laundry Staff</strong>
-                                            <small>Manage orders for a shop</small>
-                                        </span>
-                                        <span class="ww-choice__tick"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                                <path d="M5 12.5l4.5 4.5L19 7.5" />
-                                            </svg></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <p class="ww-role-help" id="roleHelp" aria-live="polite"></p>
-                        </fieldset>
-
-                        <div class="col-12 ww-field">
-                            <label for="name" class="form-label">Full name <span class="ww-req"
-                                    aria-hidden="true">*</span></label>
-                            <div class="ww-ctrl">
-                                <span class="ww-ico"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                        <circle cx="12" cy="8" r="4" />
-                                        <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
-                                    </svg></span>
-                                <input type="text" id="name" name="name" class="form-control ww-input" autocomplete="name"
-                                    required minlength="2" maxlength="255" placeholder="Juan Dela Cruz"
-                                    data-msg-required="Please enter your full name."
-                                    data-msg-invalid="Your name needs at least 2 characters."
-                                    aria-describedby="name-feedback">
-                                <div class="invalid-feedback" id="name-feedback">Please enter your full name.</div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 ww-field">
-                            <label for="email" class="form-label">Email address <span class="ww-req"
-                                    aria-hidden="true">*</span></label>
-                            <div class="ww-ctrl">
-                                <span class="ww-ico"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                        <rect x="3" y="5" width="18" height="14" rx="2.5" />
-                                        <path d="M3.5 7l8.5 6 8.5-6" />
-                                    </svg></span>
-                                <input type="email" id="email" name="email" class="form-control ww-input"
-                                    autocomplete="email" required maxlength="255" placeholder="you@example.com"
-                                    data-msg-required="Please enter your email address."
-                                    data-msg-invalid="That doesn't look like a valid email address."
-                                    aria-describedby="email-feedback">
-                                <div class="invalid-feedback" id="email-feedback">Please enter your email address.</div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 ww-field">
-                            <label for="phone" class="form-label">Phone number <span class="ww-req"
-                                    aria-hidden="true">*</span></label>
-                            <div class="ww-ctrl">
-                                <span class="ww-ico"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                        <rect x="7" y="2.5" width="10" height="19" rx="2.5" />
-                                        <path d="M11 18.5h2" />
-                                    </svg></span>
-                                <input type="tel" id="phone" name="phone" class="form-control ww-input" autocomplete="tel"
-                                    inputmode="tel" required pattern="\+?[0-9][0-9 ]{6,18}" placeholder="0917 123 4567"
-                                    data-msg-required="Please enter your phone number."
-                                    data-msg-invalid="Use digits only (spaces and a leading + are fine)."
-                                    aria-describedby="phone-feedback">
-                                <div class="invalid-feedback" id="phone-feedback">Please enter your phone number.</div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 ww-field">
-                            <label for="password" class="form-label">Password <span class="ww-req"
-                                    aria-hidden="true">*</span></label>
-                            <div class="ww-pass ww-ctrl">
-                                <span class="ww-ico"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                        <rect x="4.5" y="10.5" width="15" height="10" rx="2.5" />
-                                        <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" />
-                                    </svg></span>
-                                <input type="password" id="password" name="password" class="form-control ww-input"
-                                    autocomplete="new-password" required minlength="8"
-                                    data-msg-required="Please create a password."
-                                    data-msg-invalid="Use at least 8 characters."
-                                    aria-describedby="password-help password-feedback">
-                                <button type="button" class="ww-eye" data-toggle-password aria-controls="password"
-                                    aria-pressed="false" aria-label="Show password">
-                                    <svg class="ww-eye__on" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
-                                    <svg class="ww-eye__off d-none" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M3 3l18 18" />
-                                        <path
-                                            d="M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 4.4-1" />
-                                        <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
-                                    </svg>
-                                </button>
-                                <div class="invalid-feedback" id="password-feedback">Please create a password.</div>
-                            </div>
-
-                            <div class="ww-meter" aria-hidden="true">
-                                <span class="ww-meter__seg"></span><span class="ww-meter__seg"></span>
-                                <span class="ww-meter__seg"></span><span class="ww-meter__seg"></span>
-                            </div>
-                            <p class="ww-hint mb-0" id="password-help">
-                                <span id="strengthLabel" aria-live="polite">8+ characters with upper and lower case letters
-                                    and a number.</span>
-                            </p>
-                        </div>
-
-                        <div class="col-md-6 ww-field">
-                            <label for="password_confirmation" class="form-label">Confirm password <span class="ww-req"
-                                    aria-hidden="true">*</span></label>
-                            <div class="ww-pass ww-ctrl">
-                                <span class="ww-ico"><svg viewBox="0 0 24 24" aria-hidden="true">
-                                        <rect x="4.5" y="10.5" width="15" height="10" rx="2.5" />
-                                        <path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" />
-                                    </svg></span>
-                                <input type="password" id="password_confirmation" name="password_confirmation"
-                                    class="form-control ww-input" autocomplete="new-password" required
-                                    data-msg-required="Please confirm your password."
-                                    data-msg-invalid="Passwords do not match." aria-describedby="confirm-feedback">
-                                <button type="button" class="ww-eye" data-toggle-password
-                                    aria-controls="password_confirmation" aria-pressed="false" aria-label="Show password">
-                                    <svg class="ww-eye__on" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
-                                    <svg class="ww-eye__off d-none" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M3 3l18 18" />
-                                        <path
-                                            d="M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 4.4-1" />
-                                        <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
-                                    </svg>
-                                </button>
-                                <div class="invalid-feedback" id="confirm-feedback">Please confirm your password.</div>
-                            </div>
-                        </div>
-
-                        <div class="col-12 ww-field">
-                            <div class="form-check ww-check">
-                                <input class="form-check-input" type="checkbox" id="terms" name="terms" value="1" required
-                                    data-msg-required="Please agree to the Terms and Conditions to continue."
-                                    aria-describedby="terms-feedback">
-                                <label class="form-check-label" for="terms">
-                                    I agree to the <a href="#" target="_blank" rel="noopener">Terms and Conditions</a>
-                                    and <a href="#" target="_blank" rel="noopener">Privacy Policy</a> <span class="ww-req"
-                                        aria-hidden="true">*</span>
+                    {{-- Step 1: choose the account type (Admin is intentionally not offered) --}}
+                    <fieldset class="col-12 ww-field">
+                        <legend class="form-label">I'm signing up as <span class="ww-req" aria-hidden="true">*</span></legend>
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <label class="ww-choice">
+                                    <input type="radio" name="role" value="customer" class="ww-choice__input"
+                                           {{ old('role', 'customer') === 'customer' ? 'checked' : '' }} required>
+                                    <span class="ww-choice__body">
+                                        <span class="ww-choice__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+                                        <strong>Customer</strong>
+                                        <small>Drop off and track my laundry</small>
+                                    </span>
+                                    <span class="ww-choice__tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
                                 </label>
-                                <div class="invalid-feedback" id="terms-feedback">Please agree to the Terms and Conditions
-                                    to continue.</div>
+                            </div>
+                            <div class="col-6">
+                                <label class="ww-choice">
+                                    <input type="radio" name="role" value="staff" class="ww-choice__input"
+                                           {{ old('role') === 'staff' ? 'checked' : '' }}>
+                                    <span class="ww-choice__body">
+                                        <span class="ww-choice__ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><circle cx="12" cy="10" r="2.5"/><path d="M8 17c.8-2 2.2-3 4-3s3.2 1 4 3"/></svg></span>
+                                        <strong>Laundry Staff</strong>
+                                        <small>Manage orders for a shop</small>
+                                    </span>
+                                    <span class="ww-choice__tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+                                </label>
                             </div>
                         </div>
+                        <p class="ww-role-help" id="roleHelp" aria-live="polite"></p>
+                        @error('role')<div class="text-danger small mt-1" role="alert">{{ $message }}</div>@enderror
+                    </fieldset>
 
-                        <div class="col-12">
-                            <button type="submit" class="btn ww-btn w-100" id="submitBtn">
-                                <span class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
-                                <span class="ww-btn__label">Create Account</span>
-                            </button>
+                    {{-- Full name --}}
+                    <div class="col-12 ww-field">
+                        <label for="name" class="form-label">Full name <span class="ww-req" aria-hidden="true">*</span></label>
+                        <div class="ww-ctrl">
+                            <span class="ww-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span>
+                            <input type="text"  name="full_name" value="{{ old('full_name') }}"
+                                   class="form-control ww-input @error('full_name') is-invalid @enderror"
+                                   autocomplete="name" required minlength="2" maxlength="255"
+                                   placeholder="Juan Dela Cruz"
+                                   data-msg-required="Please enter your full name."
+                                   data-msg-invalid="Your name needs at least 2 characters."
+                                   aria-describedby="name-feedback">
+                            <div class="invalid-feedback" id="name-feedback">{{ $errors->first('full_name') ?: 'Please enter your full name.' }}</div>
                         </div>
                     </div>
 
-                    <p class="ww-login text-center mb-0">
-                        Already have an account? <a href="{{ route('login') }}">Log in</a>
-                    </p>
-                </form>
+                    {{-- Email --}}
+                    <div class="col-md-6 ww-field">
+                        <label for="email" class="form-label">Email address <span class="ww-req" aria-hidden="true">*</span></label>
+                        <div class="ww-ctrl">
+                            <span class="ww-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></span>
+                            <input type="email"  name="email" value="{{ old('email') }}"
+                                   class="form-control ww-input @error('email') is-invalid @enderror"
+                                   autocomplete="email" required maxlength="255"
+                                   placeholder="you@@example.com"
+                                   data-msg-required="Please enter your email address."
+                                   data-msg-invalid="That doesn't look like a valid email address."
+                                   aria-describedby="email-feedback">
+                            <div class="invalid-feedback" id="email-feedback">{{ $errors->first('email') ?: 'Please enter your email address.' }}</div>
+                        </div>
+                    </div>
+
+                    {{-- Phone --}}
+                    <div class="col-md-6 ww-field">
+                        <label for="phone" class="form-label">Phone number <span class="ww-req" aria-hidden="true">*</span></label>
+                        <div class="ww-ctrl">
+                            <span class="ww-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span>
+                            <input type="tel"  name="phone_number" value="{{ old('phone_number') }}"
+                                   class="form-control ww-input @error('phone_number') is-invalid @enderror"
+                                   autocomplete="tel" inputmode="tel" required
+                                   pattern="\+?[0-9][0-9 ]{6,18}"
+                                   placeholder="0917 123 4567"
+                                   data-msg-required="Please enter your phone number."
+                                   data-msg-invalid="Use digits only (spaces and a leading + are fine)."
+                                   aria-describedby="phone-feedback">
+                            <div class="invalid-feedback" id="phone-feedback">{{ $errors->first('phone_number') ?: 'Please enter your phone number.' }}</div>
+                        </div>
+                    </div>
+
+                    {{-- Password --}}
+                    <div class="col-md-6 ww-field">
+                        <label for="password" class="form-label">Password <span class="ww-req" aria-hidden="true">*</span></label>
+                        <div class="ww-pass ww-ctrl">
+                            <span class="ww-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></span>
+                            <input type="password"  name="password"
+                                   class="form-control ww-input @error('password') is-invalid @enderror"
+                                   autocomplete="new-password" required minlength="8"
+                                   data-msg-required="Please create a password."
+                                   data-msg-invalid="Use at least 8 characters."
+                                   aria-describedby="password-help password-feedback">
+                            <button type="button" class="ww-eye" data-toggle-password aria-controls="password" aria-pressed="false" aria-label="Show password">
+    <svg class="ww-eye__on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+    <svg class="ww-eye__off d-none" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 4.4-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+</button>
+                            <div class="invalid-feedback" id="password-feedback">{{ $errors->first('password') ?: 'Please create a password.' }}</div>
+                        </div>
+
+                        <div class="ww-meter" aria-hidden="true">
+                            <span class="ww-meter__seg"></span><span class="ww-meter__seg"></span>
+                            <span class="ww-meter__seg"></span><span class="ww-meter__seg"></span>
+                        </div>
+                        <p class="ww-hint mb-0" id="password-help">
+                            <span id="strengthLabel" aria-live="polite">8+ characters with upper and lower case letters and a number.</span>
+                        </p>
+                    </div>
+
+                    {{-- Confirm password --}}
+                    <div class="col-md-6 ww-field">
+                        <label for="password_confirmation" class="form-label">Confirm password <span class="ww-req" aria-hidden="true">*</span></label>
+                        <div class="ww-pass ww-ctrl">
+                            <span class="ww-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></span>
+                            <input type="password" id="password_confirmation" name="password_confirmation"
+                                   class="form-control ww-input"
+                                   autocomplete="new-password" required
+                                   data-msg-required="Please confirm your password."
+                                   data-msg-invalid="Passwords do not match."
+                                   aria-describedby="confirm-feedback">
+                            <button type="button" class="ww-eye" data-toggle-password aria-controls="password_confirmation" aria-pressed="false" aria-label="Show password">
+    <svg class="ww-eye__on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+    <svg class="ww-eye__off d-none" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6A17 17 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 4.4-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
+</button>
+                            <div class="invalid-feedback" id="confirm-feedback">Please confirm your password.</div>
+                        </div>
+                    </div>
+
+                    {{-- Terms --}}
+                    <div class="col-12 ww-field">
+                        <div class="form-check ww-check">
+                            <input class="form-check-input @error('is_agree_terms_conditions') is-invalid @enderror" type="checkbox"
+                                   id="terms" name="is_agree_terms_conditions" value="1" required {{ old('is_agree_terms_conditions') ? 'checked' : '' }}
+                                   data-msg-required="Please agree to the Terms and Conditions to continue."
+                                   aria-describedby="terms-feedback">
+                            <label class="form-check-label" for="terms">
+                                I agree to the <a href="#" target="_blank" rel="noopener">Terms and Conditions</a>
+                                and <a href="#" target="_blank" rel="noopener">Privacy Policy</a> <span class="ww-req" aria-hidden="true">*</span>
+                            </label>
+                            <div class="invalid-feedback" id="terms-feedback">{{ $errors->first('is_agree_terms_conditions') ?: 'Please agree to the Terms and Conditions to continue.' }}</div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn ww-btn w-100" >
+                            <span class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+                            <span class="ww-btn__label">Create Account</span>
+                        </button>
+                    </div>
+                </div>
+
+                <p class="ww-login text-center mb-0">
+                    Already have an account? <a href="{{ route('login') }}">Log in</a>
+                </p>
+            </form>
             </div>
         </main>
     </div>

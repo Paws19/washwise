@@ -1,0 +1,936 @@
+
+
+/* WashWise auth pages — works on top of Bootstrap 5.3 */
+:root {
+    --ww-blue-700: #255A94;
+    --ww-blue-600: #2F6DB0;
+    --ww-blue-500: #4C8FD6;
+    --ww-blue-100: #E3EFFB;
+    --ww-blue-50: #F2F8FE;
+    --ww-ink: #1D2939;
+    --ww-muted: #5B6B7F;
+    --ww-line: #D9E1EC;
+    --ww-gray: #F4F6F9;
+    --ww-radius: 12px;
+}
+
+body.ww-auth {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    color: var(--ww-ink);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+
+.ww-skip {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    z-index: 10;
+    background: #fff;
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+
+/* ---------- Left visual ---------- */
+.ww-visual {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 44px 56px;
+    background: linear-gradient(165deg, #EEF5FD 0%, #CFE2F6 100%);
+    overflow: hidden;
+}
+
+.ww-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ww-blue-700);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: -.02em;
+}
+
+.ww-brand em {
+    font-style: normal;
+    color: var(--ww-blue-500);
+}
+
+.ww-brand--mobile {
+    margin-bottom: 28px;
+}
+
+.ww-illustration {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    animation: ww-float 6s ease-in-out infinite;
+}
+
+.ww-headline {
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.03em;
+    color: var(--ww-ink);
+    margin: 0 0 14px;
+}
+
+.ww-lead {
+    color: #3F5167;
+    max-width: 380px;
+    margin: 0;
+    line-height: 1.65;
+}
+
+.ww-wave {
+    animation: ww-wave 3.6s linear infinite;
+}
+
+.ww-tumble {
+    transform-origin: 210px 208px;
+    animation: ww-spin 9s linear infinite;
+}
+
+.ww-bubble {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ww-rise 5s ease-in-out infinite;
+}
+
+.ww-bubble.b2 {
+    animation-delay: -1.2s;
+}
+
+.ww-bubble.b3 {
+    animation-delay: -2.4s;
+}
+
+.ww-bubble.b4 {
+    animation-delay: -3.1s;
+}
+
+.ww-bubble.b5 {
+    animation-delay: -4s;
+}
+
+@keyframes ww-float {
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes ww-wave {
+    to {
+        transform: translateX(-70px);
+    }
+}
+
+@keyframes ww-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes ww-rise {
+    0% {
+        transform: translateY(12px);
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-34px);
+        opacity: 0;
+    }
+}
+
+/* ---------- Right panel ---------- */
+.ww-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: #fff;
+}
+
+.ww-card {
+    width: 100%;
+    max-width: 560px;
+    animation: ww-in .5s ease both;
+}
+
+@keyframes ww-in {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+}
+
+.ww-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin: 0 0 6px;
+}
+
+.ww-sub {
+    color: var(--ww-muted);
+    font-size: .95rem;
+}
+
+.ww-req {
+    color: #C0392B;
+    font-weight: 700;
+}
+
+.ww-field .form-label,
+fieldset legend.form-label {
+    font-size: .875rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    float: none;
+    width: auto;
+}
+
+fieldset.ww-field {
+    border: 0;
+    padding: 0 calc(var(--bs-gutter-x) * .5);
+}
+
+/* Inputs */
+.ww-input {
+    height: 50px;
+    padding: 0 16px;
+    border: 1.5px solid var(--ww-line);
+    border-radius: var(--ww-radius);
+    background-color: var(--ww-gray);
+    font-size: .95rem;
+    color: var(--ww-ink);
+    transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+
+.ww-input::placeholder {
+    color: #8A98AA;
+}
+
+.ww-input:hover {
+    border-color: #BFCCDC;
+}
+
+.ww-input:focus {
+    background-color: #fff;
+    border-color: var(--ww-blue-500);
+    box-shadow: 0 0 0 4px rgba(76, 143, 214, .18);
+}
+
+.form-control.is-invalid,
+.form-control.is-valid {
+    background-image: none;
+    padding-right: 16px;
+}
+
+.ww-input.is-invalid {
+    border-color: #D64545;
+    background-color: #fff;
+}
+
+.ww-input.is-invalid:focus {
+    box-shadow: 0 0 0 4px rgba(214, 69, 69, .15);
+}
+
+.ww-input.is-valid {
+    border-color: #5BAE8A;
+}
+
+.invalid-feedback {
+    font-size: .8125rem;
+    margin-top: 6px;
+}
+
+/* Password field + eye */
+.ww-pass {
+    position: relative;
+}
+
+.ww-pass .ww-input {
+    padding-right: 48px !important;
+}
+
+.ww-eye {
+    position: absolute;
+    top: 0;
+    right: 4px;
+    height: 50px;
+    width: 44px;
+    display: grid;
+    place-items: center;
+    background: none;
+    border: 0;
+    border-radius: 10px;
+    color: var(--ww-muted);
+}
+
+.ww-eye:hover {
+    color: var(--ww-blue-600);
+}
+
+.ww-eye svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Strength meter */
+.ww-meter {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.ww-meter__seg {
+    height: 5px;
+    border-radius: 99px;
+    background: var(--ww-line);
+    transition: background-color .25s;
+}
+
+.ww-hint {
+    font-size: .78rem;
+    color: var(--ww-muted);
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+.ww-meter[data-level="1"] .ww-meter__seg:nth-child(-n+1) {
+    background: #D95C5C;
+}
+
+.ww-meter[data-level="2"] .ww-meter__seg:nth-child(-n+2) {
+    background: #E3A93B;
+}
+
+.ww-meter[data-level="3"] .ww-meter__seg:nth-child(-n+3) {
+    background: #4C8FD6;
+}
+
+.ww-meter[data-level="4"] .ww-meter__seg:nth-child(-n+4) {
+    background: #2E9E6B;
+}
+
+.ww-hint[data-level="1"] {
+    color: #B3382F;
+}
+
+.ww-hint[data-level="2"] {
+    color: #8A5A00;
+}
+
+.ww-hint[data-level="3"] {
+    color: #1F5E9E;
+}
+
+.ww-hint[data-level="4"] {
+    color: #1B7A50;
+}
+
+/* Account type cards */
+.ww-choice {
+    display: block;
+    height: 100%;
+    cursor: pointer;
+}
+
+.ww-choice__input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ww-choice__body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    height: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--ww-line);
+    border-radius: var(--ww-radius);
+    background: #fff;
+    transition: border-color .2s, background-color .2s, box-shadow .2s, transform .2s;
+}
+
+.ww-choice__body svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: var(--ww-blue-600);
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    margin-bottom: 6px;
+}
+
+.ww-choice__body strong {
+    font-size: .92rem;
+}
+
+.ww-choice__body small {
+    color: var(--ww-muted);
+    font-size: .78rem;
+    line-height: 1.35;
+}
+
+.ww-choice:hover .ww-choice__body {
+    border-color: #AFC6E0;
+    transform: translateY(-1px);
+}
+
+.ww-choice__input:checked+.ww-choice__body {
+    border-color: var(--ww-blue-500);
+    background: var(--ww-blue-50);
+    box-shadow: 0 0 0 3px rgba(76, 143, 214, .16);
+}
+
+.ww-choice__input:focus-visible+.ww-choice__body {
+    outline: 3px solid var(--ww-blue-500);
+    outline-offset: 2px;
+}
+
+/* Checkbox */
+.ww-check {
+    font-size: .875rem;
+    color: var(--ww-muted);
+}
+
+.ww-check .form-check-input {
+    width: 1.15em;
+    height: 1.15em;
+    margin-top: .2em;
+    border-width: 1.5px;
+    border-color: #AEBBCC;
+}
+
+.ww-check .form-check-input:checked {
+    background-color: var(--ww-blue-600);
+    border-color: var(--ww-blue-600);
+}
+
+.ww-check .form-check-input:focus {
+    box-shadow: 0 0 0 4px rgba(76, 143, 214, .18);
+    border-color: var(--ww-blue-500);
+}
+
+.ww-check a,
+.ww-login a {
+    color: var(--ww-blue-600);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.ww-check a:hover,
+.ww-login a:hover {
+    text-decoration: underline;
+}
+
+/* Button */
+.ww-btn {
+    height: 52px;
+    border: 0;
+    border-radius: var(--ww-radius);
+    background: var(--ww-blue-600);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color .2s, transform .15s, box-shadow .2s;
+}
+
+.ww-btn:hover {
+    background: var(--ww-blue-700);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(47, 109, 176, .28);
+}
+
+.ww-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.ww-btn:focus-visible {
+    outline: 3px solid var(--ww-blue-500);
+    outline-offset: 3px;
+    color: #fff;
+}
+
+.ww-btn:disabled {
+    opacity: .75;
+    transform: none;
+    box-shadow: none;
+}
+
+.ww-login {
+    margin-top: 22px;
+    font-size: .92rem;
+    color: var(--ww-muted);
+}
+
+a:focus-visible,
+.ww-eye:focus-visible {
+    outline: 3px solid var(--ww-blue-500);
+    outline-offset: 2px;
+}
+
+@media (max-width: 575.98px) {
+    .ww-panel {
+        padding: 28px 16px 40px;
+    }
+
+    .ww-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+
+/* ---- Modern touches on top of washwise-auth.css ---- */
+.ww-visual {
+    background: linear-gradient(160deg, #EEF6FE 0%, #CBE0F5 100%);
+}
+
+.ww-visual::before,
+.ww-visual::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(48px);
+    opacity: .7;
+    pointer-events: none;
+}
+
+.ww-visual::before {
+    width: 320px;
+    height: 320px;
+    background: #fff;
+    top: -90px;
+    right: -80px;
+}
+
+.ww-visual::after {
+    width: 300px;
+    height: 300px;
+    background: #9CC4EC;
+    bottom: -110px;
+    left: -90px;
+}
+
+.ww-visual>* {
+    position: relative;
+    z-index: 1;
+}
+
+.ww-brand,
+.ww-title,
+.ww-headline {
+    font-weight: 800;
+    letter-spacing: -.03em;
+}
+
+.ww-stage {
+    position: relative;
+    width: 100%;
+    max-width: 390px;
+    margin: 0 auto;
+}
+
+.ww-stage .ww-illustration {
+    max-width: none;
+    margin: 0;
+    display: block;
+}
+
+.ww-chip {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px 10px 10px;
+    border-radius: 14px;
+    font-size: .78rem;
+    line-height: 1.25;
+    background: rgba(255, 255, 255, .72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, .9);
+    box-shadow: 0 10px 30px rgba(36, 79, 134, .14);
+    animation: ww-float 5s ease-in-out infinite;
+}
+
+.ww-chip b {
+    display: block;
+    font-weight: 700;
+}
+
+.ww-chip span {
+    color: var(--ww-muted);
+}
+
+.ww-chip i {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: var(--ww-blue-600);
+    color: #fff;
+}
+
+.ww-chip i svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ww-chip--1 {
+    left: -26px;
+    top: 22%;
+}
+
+.ww-chip--2 {
+    right: -22px;
+    bottom: 14%;
+    animation-delay: -2.2s;
+}
+
+.ww-chip--2 i {
+    background: #2E9E6B;
+}
+
+/* Role picker */
+.ww-role-help {
+    font-size: .82rem;
+    color: var(--ww-muted);
+    margin: 10px 0 0;
+    min-height: 1.3em;
+}
+
+.ww-choice {
+    position: relative;
+}
+
+.ww-choice__body {
+    padding: 16px;
+}
+
+.ww-choice__ico {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--ww-blue-100);
+    color: var(--ww-blue-600);
+    margin-bottom: 8px;
+    transition: background-color .2s, color .2s;
+}
+
+.ww-choice__ico svg {
+    margin: 0;
+    stroke: currentColor;
+}
+
+.ww-choice:hover .ww-choice__body {
+    transform: translateY(-2px);
+}
+
+.ww-choice__input:checked+.ww-choice__body .ww-choice__ico {
+    background: var(--ww-blue-600);
+    color: #fff;
+}
+
+.ww-choice__tick {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--ww-blue-600);
+    color: #fff;
+    display: none;
+    place-items: center;
+}
+
+.ww-choice__tick svg {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ww-choice__input:checked~.ww-choice__tick {
+    display: grid;
+    animation: ww-pop .25s ease;
+}
+
+@keyframes ww-pop {
+    from {
+        transform: scale(.4);
+        opacity: 0;
+    }
+}
+
+/* Inputs with leading icons */
+.ww-ctrl {
+    position: relative;
+}
+
+.ww-ico {
+    position: absolute;
+    left: 15px;
+    top: 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    color: #8394A8;
+    pointer-events: none;
+    transition: color .2s;
+}
+
+.ww-ico svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ww-ctrl:focus-within .ww-ico {
+    color: var(--ww-blue-600);
+}
+
+.ww-ctrl .ww-input {
+    padding-left: 44px;
+}
+
+.ww-btn {
+    height: 54px;
+    font-weight: 700;
+    background: linear-gradient(180deg, #3A7CC4, var(--ww-blue-600));
+    box-shadow: 0 6px 16px rgba(47, 109, 176, .25);
+}
+
+.ww-btn:hover {
+    background: linear-gradient(180deg, #3A7CC4, var(--ww-blue-600));
+    filter: brightness(1.04);
+    box-shadow: 0 12px 24px rgba(47, 109, 176, .32);
+}
+
+@media (max-width: 575.98px) {
+    .ww-choice__body {
+        padding: 14px;
+    }
+}
+
+
+.ww-forgot {
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--ww-blue-600);
+    text-decoration: none;
+}
+
+.ww-forgot:hover {
+    text-decoration: underline;
+}
+
+.ww-card {
+    max-width: 480px;
+}
+
+.ww-card {
+    max-width: 480px;
+}
+
+.ww-badge {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--ww-blue-100);
+    color: var(--ww-blue-600);
+    margin-bottom: 20px;
+}
+
+.ww-badge svg {
+    width: 28px;
+    height: 28px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ww-sub strong {
+    color: var(--ww-ink);
+    font-weight: 600;
+    word-break: break-all;
+}
+
+fieldset {
+    min-width: 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.ww-otp {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.ww-otp__box {
+    flex: 1 1 0;
+    width: 0;
+    min-width: 0;
+    max-width: 64px;
+    height: 60px;
+    padding: 0;
+    text-align: center;
+    font: 700 1.5rem 'Plus Jakarta Sans', system-ui, sans-serif;
+    color: var(--ww-ink);
+    border: 1.5px solid var(--ww-line);
+    border-radius: var(--ww-radius);
+    background: var(--ww-gray);
+    caret-color: var(--ww-blue-600);
+    transition: border-color .2s, box-shadow .2s, background-color .2s, transform .15s;
+}
+
+.ww-otp__box:hover {
+    border-color: #BFCCDC;
+}
+
+.ww-otp__box:focus {
+    outline: 0;
+    background: #fff;
+    border-color: var(--ww-blue-500);
+    box-shadow: 0 0 0 4px rgba(76, 143, 214, .18);
+    transform: translateY(-1px);
+}
+
+.ww-otp__box.is-filled {
+    background: #fff;
+    border-color: var(--ww-blue-500);
+}
+
+.ww-otp.is-error .ww-otp__box {
+    border-color: #D64545;
+    background: #fff;
+}
+
+.ww-otp.is-error {
+    animation: ww-shake .35s ease;
+}
+
+.ww-otp.is-ok .ww-otp__box {
+    border-color: #5BAE8A;
+    background: #F3FBF7;
+}
+
+@keyframes ww-shake {
+
+    20%,
+    60% {
+        transform: translateX(-6px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(6px);
+    }
+}
+
+.ww-otp-msg {
+    min-height: 1.4em;
+    margin: 12px 0 0;
+    font-size: .85rem;
+    color: #C0392B;
+}
+
+.ww-resend {
+    text-align: center;
+    margin: 22px 0 0;
+    font-size: .92rem;
+    color: var(--ww-muted);
+}
+
+.ww-link {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-weight: 600;
+    color: var(--ww-blue-600);
+}
+
+.ww-link:hover:not(:disabled) {
+    text-decoration: underline;
+}
+
+.ww-link:disabled {
+    color: #8394A8;
+    cursor: not-allowed;
+}
+
+.ww-link:focus-visible {
+    outline: 3px solid var(--ww-blue-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+@media (max-width: 400px) {
+    .ww-otp {
+        gap: 6px;
+    }
+
+    .ww-otp__box {
+        height: 54px;
+        font-size: 1.3rem;
+    }
+}
+
