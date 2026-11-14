@@ -78,4 +78,55 @@ public function registerProcess(Request $request)
         ->with('success', 'Registration successful! Please check your email for your 6-digit verification code.');
 }
 
+
+
+// Verify Verification Code
+public function verifyCode(Request $request)
+{
+    $validated = $request->validate([
+        'verification_code' => 'required|string|size:6',
+    ]);
+
+    // Get the account ID from the session
+    $accountId = session('pending_verification_account_id');
+
+    // Find the user
+    $user = RegistrationModel::find($accountId);
+
+    // Check if account exists
+    if (!$user) {
+        return redirect()->route('verification-code')
+            ->withErrors(['verification_code' => 'Account not found.']);
+    }
+
+    // Check if verification code matches
+    if ($user->verification_code !== $validated['verification_code']) {
+        return back()->withErrors([
+            'verification_code' => 'Invalid verification code. Please try again.'
+        ]);
+    }
+
+    // Check if verification code has expired
+    if ($user->verification_code_expires_at < now()) {
+        return back()->withErrors([
+            'verification_code' => 'Verification code has expired. Please request a new one.'
+        ]);
+    }
+
+    // Mark account as verified
+    $user->email_verified_at = now();
+    $user->verification_code = null;
+    $user->save();
+
+    // Clear verification session
+    session()->forget('pending_verification_account_id');
+
+    // Redirect after successful verification
+    return redirect()->route('login')
+        ->with('success', 'Your email has been successfully verified! You can now log in.');
 }
+
+}
+
+
+
